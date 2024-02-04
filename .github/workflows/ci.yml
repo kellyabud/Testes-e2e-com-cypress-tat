@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '20'
+        check-latest: true
 
     - name: Install dependencies
       run: npm install
