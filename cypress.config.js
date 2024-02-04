@@ -9,8 +9,10 @@ module.exports = defineConfig({
     },
     requestTimeout: 15000,
     defaultCommandTimeout: 30000,
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    
+    
+    
   },
+
+  projectId: 'f8zztb'
 })
