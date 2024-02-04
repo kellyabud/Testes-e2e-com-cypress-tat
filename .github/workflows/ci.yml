@@ -7,30 +7,41 @@ on:
   pull_request:
 
 jobs:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Use Node.js
-    uses: actions/setup-node@v3
-    with:
-    node-version: '18.x'
-    - run: npm install
-    - run: npm run build --if-present      
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build --if-present
 
   eslint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Install modules
-      run: npm install
-    - name: Run ESLint
-      run: npm run lint
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install modules
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
   cypress-tests-desktop:
     needs: eslint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Run end-to-end tests on desktop viewport 🧪
         uses: cypress-io/github-action@v5
         env:
@@ -41,12 +52,14 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           command: npm run test:tablet
+
   cypress-tests-tablet:
     needs: eslint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Run end-to-end tests on tablet viewport 🧪
         uses: cypress-io/github-action@v5
         env:
