@@ -3,63 +3,133 @@
 name: ci
 
 on:
-  push:
-    branches:
+  
+  
+push:
+    
+    
+branches:
       - main
   pull_request:
 
 jobs:
   eslint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Atualizando para Ubuntu 22.04
     steps:
-    - uses: actions/checkout@v3  # Usando a versão 3 da ação checkout
+    - uses: actions/checkout@v3
     - name: Set up Node.js
-      uses: actions/setup-node@v3  # Ação para configurar o ambiente Node.js
+      
+    
+uses: actions/setup-node@v3
       with:
-        node-version: '18'  # Especificando a versão do Node.js desejada
-    - name: Install modules
-      run: npm install
+        node-version: '18'
+    
+  
+- name: Install modules
+      
+ 
+run: npm install
     - name: Run ESLint
       run: npm run lint
 
-  cypress-tests-desktop:
-    
   
-needs: eslint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3  # Usando a versão 3 da ação checkout
-      - name: Set up Node.js
-        uses: actions/setup-node@v3  # Ação para configurar o ambiente Node.js
-        with:
-          node-version: '18'  # Especificando a versão do Node.js desejada
-      - name: Run end-to-end tests on desktop viewport 🧪
-        uses: cypress-io/github-action@v3
-        env:
-          CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
-          CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
-          CYPRESS_MAILOSAUR_SERVER_ID: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
-          CYPRESS_MAILOSAUR_API_KEY: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} 
-        with:
-          command: npm run test:cloud
 
-  cypress-tests-tablet:
-    needs: eslint
-    runs-on: ubuntu-latest
-    steps:
+  
+cypress-tests-desktop:
+    
+    
+needs: eslint
+    runs-on: ubuntu-22.04  # Atualizando para Ubuntu 22.04
+    
+    
+steps:
       - name: Checkout
-        uses: actions/checkout@v3  # Usando a versão 3 da ação checkout
-      - name: Set up Node.js
-        uses: actions/setup-node@v3  # Ação para configurar o ambiente Node.js
-        with:
-          node-version: '18'  # Especificando a versão do Node.js desejada
-      - name: Run end-to-end tests on tablet viewport 🧪
-        uses: cypress-io/github-action@v3
-        env:
+        uses: actions/checkout@v3
+      
+   
+- name: Set up Node.js
+        
+  
+uses: actions/setup-node@v3
+        
+        
+with:
+          node-version: '18'
+      
+ 
+- name: Run end-to-end tests on desktop viewport 🧪
+        
+  
+uses: cypress-io/github-action@v3
+        
+     
+env:
           CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
-          CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} 
-        with:
-          command: npm run test:tablet:cloud
+          
+    
+CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+          
+    
+CYPRESS_MAILOSAUR_SERVER_ID: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
+          
+   
+CYPRESS_MAILOSAUR_API_KEY: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
+          
+         
+CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} 
+        
+ 
+with:
+          
+          
+
+   
+command: npm run test:cloud
+
+  
+
+  
+cypress-tests-tablet:
+    needs: eslint
+    
+    
+runs-on: ubuntu-22.04  # Atualizando para Ubuntu 22.04
+    
+ 
+steps:
+      
+   
+- name: Checkout
+        
+        
+uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        
+     
+with:
+          
+     
+node-version: '18'
+      - name: Run end-to-end tests on tablet viewport 🧪
+        
+      
+uses: cypress-io/github-action@v3
+        
+       
+env:
+          
+    
+CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+          
+   
+CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+          
+       
+CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} 
+        
+      
+with:
+          
+   
+command: npm run test:tablet:cloud
