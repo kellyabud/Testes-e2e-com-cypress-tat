@@ -1,16 +1,13 @@
 # .github/workflows/ci.yml
-
 name: ci
 
 on:
-  
-  
-push:
-    
-    
-branches:
+  push:
+    branches:
       - main
   pull_request:
+  
+
 
 jobs:
   eslint:
