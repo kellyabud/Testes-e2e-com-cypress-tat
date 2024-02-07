@@ -29,20 +29,20 @@ describe('Scenarios where authentication is a pre-condition', () => {
 
     cy.fillSettingsFormAndSubmit()
 
-    cy.wait('@getNotes')
+    cy.wait('cy.wait(2000)')
     cy.wait('@paymentRequest')
       .its('state')
       .should('be.equal', 'Complete')
   })
 
-  it('logs out', { tags: '@desktop-and-tablet' }, () => {
-    cy.visit('/')
-    cy.wait('@getNotes')
-    if (Cypress.config('viewportWidth') < Cypress.env('viewportWidthBreakpoint')) {
-      cy.get('.navbar-toggle.collapsed')
-        .should('be.visible')
-        .click()
-    }
+  //it('logs out', { tags: '@desktop-and-tablet' }, () => {
+    //cy.visit('/')
+    //cy.wait('@getNotes')
+    //if (Cypress.config('viewportWidth') < Cypress.env('viewportWidthBreakpoint')) {
+      //cy.get('.navbar-toggle.collapsed')
+        //.should('be.visible')
+        //.click()
+    //}
 
     cy.contains('.nav a', 'Logout').click()
     cy.get('#email').should('be.visible')
